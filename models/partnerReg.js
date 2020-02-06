@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
-const contactSchema = new schema({
+const partnerRegisSchema = new schema({
     name : {
         type: String
     },
@@ -15,6 +15,9 @@ const contactSchema = new schema({
     city : {
         type: String,
         required: true
+    },
+    pincode : {
+        type: String
     },
     state : {
         type: String
@@ -30,4 +33,4 @@ const contactSchema = new schema({
     
 })
 
-module.exports = contact = mongoose.model('contact', contactSchema);
+module.exports = partnerRegis = mongoose.model('partnerRegis', partnerRegisSchema);
