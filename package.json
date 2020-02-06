@@ -17,6 +17,8 @@
     "mongodb": "^3.5.2",
     "mongoose": "^5.8.11",
     "nodemailer": "^6.4.2",
-    "random-number": "0.0.9"
+    "npm": "^6.13.7",
+    "random-number": "0.0.9",
+    "start": "^5.1.0"
   }
 }

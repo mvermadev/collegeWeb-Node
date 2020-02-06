@@ -10,8 +10,17 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({extended:false}))
 
+const mongoURI = "mongodb://localhost:27017/eservices";
+
+mongoose.connect(mongoURI, {useNewUrlParser: true})
+.then(()=>console.log('mongoDb connected'))
+.catch(err=>console.log(err));
+
 let router = require('./routes/otp');
 app.use('/users',router);
+
+let ContactRouter = require('./routes/Contact');
+app.use('/ask', ContactRouter);
 
 // app.get('/', (req, res)=>{
 //     console.log('responding to routes');
