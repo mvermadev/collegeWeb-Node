@@ -21,13 +21,13 @@ router.post('/sendOtp', (req, res)=>{
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'offerbird@gmail.com',
-            pass : 'm-o-n-ubirdge'
+            user: 'servicebird365@gmail.com',
+            pass : 'b-i-r-deservices'
         }
     });
 
     const mailOptions = {
-        from: 'offerbird@gmail.com',
+        from: 'ServiceBird 365',
         to: email,
         subject : 'OTP',
         text : 'Hey ' + ', Your OTP verfication is : ' + ran + ' for E-service Website Registration process'

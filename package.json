@@ -4,7 +4,8 @@
   "description": "backend of college website",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js"
   },
   "author": "manish verma",
   "license": "ISC",
@@ -20,5 +21,8 @@
     "npm": "^6.13.7",
     "random-number": "0.0.9",
     "start": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
