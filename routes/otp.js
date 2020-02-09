@@ -14,7 +14,6 @@ const options = {
 }
 
 var ran = rn(options)
-
 router.post('/sendOtp', (req, res)=>{
     const email = req.body.email;
 
@@ -57,6 +56,7 @@ router.post('/otpAuth', (req, res)=>{
     else
     {
         console.log('Invalid OTP');
+        res.redirect('/login')
     }
     res.end();
 })

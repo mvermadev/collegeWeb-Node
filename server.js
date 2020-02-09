@@ -25,6 +25,9 @@ app.use('/ask', ContactRouter);
 let partnerRegisRouter = require('./routes/PartnerReg');
 app.use('/newPartner', partnerRegisRouter);
 
+let serviceAddRouter = require('./routes/ServiceAdd');
+app.use('/getDetail', serviceAddRouter);
+
 // app.get('/', (req, res)=>{
 //     console.log('responding to routes');
 //     res.send('your nodejs is connected')
