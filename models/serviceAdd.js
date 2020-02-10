@@ -7,10 +7,10 @@ const serviceAddSchema = new schema({
     },
     email : {
         type: String,
-        required : true
     },
     phone : {
         type: String,
+        required : true
     },
     Address : {
         type: String,
@@ -29,6 +29,10 @@ const serviceAddSchema = new schema({
     },
     serviceType : {
         type: String,
+    },
+    referenceNo : {
+        type: String,
+        required: true
     },
     created : {
         type: Date,

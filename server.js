@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const morgan = require('morgan')
 
 const port = process.env.PORT || 5000;
 
@@ -27,6 +28,9 @@ app.use('/newPartner', partnerRegisRouter);
 
 let serviceAddRouter = require('./routes/ServiceAdd');
 app.use('/getDetail', serviceAddRouter);
+
+app.use(morgan('tiny'))
+app.use('/userDetails', serviceAddRouter)
 
 // app.get('/', (req, res)=>{
 //     console.log('responding to routes');
