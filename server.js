@@ -29,7 +29,10 @@ app.use('/newPartner', partnerRegisRouter);
 let serviceAddRouter = require('./routes/ServiceAdd');
 app.use('/getDetail', serviceAddRouter);
 
+let userInfoRouter = require('./routes/UserInfo');
+
 app.use(morgan('tiny'))
+app.use('/userDetails', userInfoRouter);
 app.use('/userDetails', serviceAddRouter)
 
 // app.get('/', (req, res)=>{

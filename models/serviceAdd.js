@@ -12,7 +12,10 @@ const serviceAddSchema = new schema({
         type: String,
         required : true
     },
-    Address : {
+    address1 : {
+        type: String,
+    },
+    address2 : {
         type: String,
     },
     city : {

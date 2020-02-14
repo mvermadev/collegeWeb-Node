@@ -26,6 +26,9 @@ const partnerRegisSchema = new schema({
         type: String,
         required: true
     },
+    partnerId : {
+        type: String,
+    },
     created : {
         type: Date,
         default: Date.now

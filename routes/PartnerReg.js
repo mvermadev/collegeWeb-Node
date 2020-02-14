@@ -17,6 +17,7 @@ router.post('/partnerRegisteration', (req, res)=>{
         pincode : req.body.pincode,
         state : req.body.state,
         service : req.body.service,
+        partnerId : req.body.partnerId,
         created : today
     }
     console.log(req.body);
@@ -58,6 +59,96 @@ router.post('/partnerRegisteration', (req, res)=>{
         }
     })
     res.end();
+})
+
+
+router.get('/partnerDetails/:email', (req, res)=>{
+    const emailVal = req.params.email;
+
+    PartnerReg.find({ email: emailVal})
+    .then((data)=>{
+        console.log('userDetails data received')
+        res.json({data});
+    }).
+    catch(err=>{
+        console.log('Error fom retrieve Details : ', err)
+    })
+
+})
+
+// Update Partner Information.
+router.post('/updatePartner/:id/:email/:field/:newValue', (req, res)=>{
+    // const newValue = req.params.newValue;
+    
+    const today = new Date();
+    const partnerData = {
+        mypartnerId : req.params.id,
+        email : req.params.email,
+        field : req.params.field,
+        newValue : req.params.newValue,
+    }
+
+    const query = {partnerId : partnerData.mypartnerId}
+
+    const objValue = {};
+    objValue[partnerData.field] = partnerData.newValue;
+
+    
+    // console.log(req.body);
+    console.log(query)
+    console.log(objValue)
+    
+    PartnerReg.updateOne(query, { $set : objValue }, 
+    (err, raw)=>{
+        if(err)
+        {
+            res.send('Err to update')
+        }
+        else
+        {
+            console.log(raw)
+        }
+    });
+
+      // Send Email as well.
+    //   const transporter = nodemailer.createTransport({
+    //     service: 'gmail',
+    //     auth: {
+    //         user: 'servicebird365@gmail.com',
+    //         pass : 'b-i-r-deservices'
+    //     }
+    // });
+
+    // const mailOptions = {
+    //     from: 'ServiceBird 365',
+    //     to: partnerData.email,
+    //     subject : 'E-Services Response',
+    //     // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
+    //     text : `Hey ${partnerData.name}, you had recently updated your information.
+            
+    //     name : ${partnerData.name},
+    //     phone : ${partnerData.phone},
+    //     email : ${partnerData.email},
+    //     city : ${partnerData.city},
+    //     pincode : ${partnerData.pincode},
+    //     state : ${partnerData.state},
+    //     service : ${partnerData.service},
+    //     `
+    // }
+
+    // transporter.sendMail(mailOptions, (err, info)=>{
+    //     if(err)
+    //     {
+    //         console.log(err);
+    //     }
+    //     else
+    //     {
+    //         console.log('Email is sended');
+    //         res.end();
+    //     }
+    // })
+    res.end();
+
 })
 
 module.exports = router
