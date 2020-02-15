@@ -168,7 +168,7 @@ router.get('/userOrders/:email/', (req, res)=>{
         var jsonContent = JSON.stringify({data})
         console.log(jsonContent)
 
-        fs.writeFile("./college-basic-react/src/pages/Registeration/UserAccount/orderData.json", jsonContent, 'utf8', (err)=>{
+        fs.writeFile("./CollegeWeb-React/src/pages/Registeration/UserAccount/orderData.json", jsonContent, 'utf8', (err)=>{
             if(err)
             {
                 console.log('Err to save orderedData in JsonFile : ',err)
