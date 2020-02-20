@@ -33,6 +33,9 @@ const serviceAddSchema = new schema({
     serviceType : {
         type: String,
     },
+    subService : {
+        type: String,
+    },
     referenceNo : {
         type: String,
         required: true

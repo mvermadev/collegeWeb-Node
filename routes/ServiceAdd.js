@@ -23,6 +23,7 @@ router.post('/serviceAddress', (req, res)=>{
         state : req.body.state,
         place : req.body.place,
         serviceType : req.body.serviceType,
+        subService : req.body.subService,
         referenceNo : req.body.referenceNo,
         created : today
     }
@@ -48,9 +49,9 @@ router.post('/serviceAddress', (req, res)=>{
     const mailOptions = {
         from: 'ServiceBird 365',
         to: serviceData.email,
-        subject : `${serviceData.serviceType} Service`,
+        subject : `${serviceData.serviceType} ${serviceData.subService} Service`,
         // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
-        text : `Hey ${serviceData.name}, we received your booking request for ${serviceData.serviceType} and your reference no is ${serviceData.referenceNo} service.\n\nWhat Next? \nNow, we will evaluate your information which you had submitted for "${serviceData.serviceType}" service, then we will contact you to invite in final register to become our best working partner.\nThese whole process take 1-3 business days.\n\nThank you to join us.`
+        text : `Hey ${serviceData.name}, we received your booking request for ${serviceData.subService}. which are came in ${serviceData.serviceType} service and your reference no is ${serviceData.referenceNo} service.\n\nWhat Next? \nNow, we will evaluate your information which you had submitted for "${serviceData.subService}" service.\n\nThank you to join us.`
     }
 
     transporter.sendMail(mailOptions, (err, info)=>{
@@ -85,15 +86,22 @@ router.get('/retDetails/:serValue/:refValue', (req, res)=>{
 })
 
 
+//Task: 
+    // 1. send email to user if partner not exist.
+    // 2. fetch email of user in below URL.
+
+
 // Send email to specific partner.
-router.get('/specPartner/:name/:address1/:address2/:cityValue/:pincode/:state/:contact/:serValue', (req, res)=>{
+router.get('/specPartner/:name/:email/:address1/:address2/:cityValue/:pincode/:state/:contact/:serValue/:subSer', (req, res)=>{
     const name = req.params.name;
+    const userEmail = req.params.email;
     const address1 = req.params.address1;
     const address2 = req.params.address2;
     const pincode = req.params.pincode;
     const state = req.params.state;
     const contact = req.params.contact;
     const serValue = req.params.serValue;
+    const subSer = req.params.subSer;
     const cityValue = req.params.cityValue;
 
       // Send Email to specific Service-Partner as well.
@@ -120,9 +128,9 @@ router.get('/specPartner/:name/:address1/:address2/:cityValue/:pincode/:state/:c
                   const mailOptions = {
                       from: 'ServiceBird 365',
                       to: partEmail,
-                      subject : `${serValue} Service`,
+                      subject : `${serValue}, ${subSer} Service`,
                       // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
-                      text : `Hey ${partner.name}, we received a service which is relevent to your to sevice is ${serValue} and the location is ${cityValue}, If you want to grabs that deal then we provide you some useful customer information below to connect with them.
+                      text : `Hey ${partner.name}, we received a service which is relevent to your to sevice is "${serValue}, ${subSer}" and the location is ${cityValue}, If you want to grabs that deal then we provide you some useful customer information below to connect with them.
                     
                         Name: ${name},
                         address1 : ${address1},
@@ -131,7 +139,7 @@ router.get('/specPartner/:name/:address1/:address2/:cityValue/:pincode/:state/:c
                         pincode: ${pincode},
                         state : ${state},
                         contact: ${contact},
-                        Require Service: ${serValue}
+                        Require Service: ${serValue}, ${subSer}.
                       `
                   }
   
@@ -148,8 +156,38 @@ router.get('/specPartner/:name/:address1/:address2/:cityValue/:pincode/:state/:c
                   })
           }
           else{
-              res.json({err: "partner does not exist"})
-              res.send("partner does not exist")
+            //   res.json({err: "partner does not exist"})
+            //   res.send("partner does not exist")
+
+            // if, Partner doesnt exist then send "SORRY" mail.
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'servicebird365@gmail.com',
+                    pass : 'b-i-r-deservices'
+                }
+            });
+
+            const mailOptions = {
+                from: 'ServiceBird 365',
+                to: userEmail,
+                subject : `Sorry, for ${subSer} Service`,
+                // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
+                text : `Hey ${name}, we received your request for ${subSer} service.\n\nWe regrets, that your required service is not available because of deficiency of ${subSer} service partner.
+                `
+            }
+
+            transporter.sendMail(mailOptions, (err, info)=>{
+                if(err)
+                {
+                    console.log(err);
+                }
+                else
+                {
+                    console.log('Email is sended to specific partner');
+                    res.end();
+                }
+            })
           }
       }).
       catch(err=>{
