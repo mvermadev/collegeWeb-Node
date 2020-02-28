@@ -37,34 +37,34 @@ router.post('/serviceAddress', (req, res)=>{
         res.send('error ' + err)
     })
 
-    // Send Email as well.
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'servicebird365@gmail.com',
-            pass : 'b-i-r-deservices'
+          // Send Email as well.
+          const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'servicebird365@gmail.com',
+                pass : 'b-i-r-deservices'
+            }
+        });
+    
+        const mailOptions = {
+            from: 'ServiceBird 365',
+            to: serviceData.email,
+            subject : `${serviceData.serviceType} ${serviceData.subService} Service`,
+            // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
+            text : `Hey ${serviceData.name}, we received your booking request for ${serviceData.subService}. which are came in ${serviceData.serviceType} service and your reference no is ${serviceData.referenceNo} service.\n\nWhat Next? \nNow, we will evaluate your information which you had submitted for "${serviceData.subService}" service.\n\nThank you to join us.`
         }
-    });
-
-    const mailOptions = {
-        from: 'ServiceBird 365',
-        to: serviceData.email,
-        subject : `${serviceData.serviceType} ${serviceData.subService} Service`,
-        // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
-        text : `Hey ${serviceData.name}, we received your booking request for ${serviceData.subService}. which are came in ${serviceData.serviceType} service and your reference no is ${serviceData.referenceNo} service.\n\nWhat Next? \nNow, we will evaluate your information which you had submitted for "${serviceData.subService}" service.\n\nThank you to join us.`
-    }
-
-    transporter.sendMail(mailOptions, (err, info)=>{
-        if(err)
-        {
-            console.log(err);
-        }
-        else
-        {
-            console.log('Email is sended');
-            res.end();
-        }
-    })
+    
+        transporter.sendMail(mailOptions, (err, info)=>{
+            if(err)
+            {
+                console.log(err);
+            }
+            else
+            {
+                console.log('Email is sended');
+                res.end();
+            }
+        })
 
 
     res.end();
@@ -116,7 +116,7 @@ router.get('/specPartner/:name/:email/:address1/:address2/:cityValue/:pincode/:s
               
               const partEmail = partner.email;
   
-                  // Send Email as well.
+            // Send Email, If Partner exists.
                   const transporter = nodemailer.createTransport({
                       service: 'gmail',
                       auth: {
@@ -128,7 +128,7 @@ router.get('/specPartner/:name/:email/:address1/:address2/:cityValue/:pincode/:s
                   const mailOptions = {
                       from: 'ServiceBird 365',
                       to: partEmail,
-                      subject : `${serValue}, ${subSer} Service`,
+                      subject : `${serValue}, ${subSer} Job`,
                       // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
                       text : `Hey ${partner.name}, we received a service which is relevent to your to sevice is "${serValue}, ${subSer}" and the location is ${cityValue}, If you want to grabs that deal then we provide you some useful customer information below to connect with them.
                     
