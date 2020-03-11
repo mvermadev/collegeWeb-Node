@@ -206,13 +206,13 @@ router.get('/userOrders/:email/', (req, res)=>{
         var jsonContent = JSON.stringify({data})
         console.log(jsonContent)
 
-        fs.writeFile("./CollegeWeb-React/src/pages/Registeration/UserAccount/orderData.json", jsonContent, 'utf8', (err)=>{
-            if(err)
-            {
-                console.log('Err to save orderedData in JsonFile : ',err)
-            }
-            console.log("JSON file saved")
-        })
+        // fs.writeFile("./CollegeWeb-React/src/pages/Registeration/UserAccount/orderData.json", jsonContent, 'utf8', (err)=>{
+        //     if(err)
+        //     {
+        //         console.log('Err to save orderedData in JsonFile : ',err)
+        //     }
+        //     console.log("JSON file saved")
+        // })
 
     }).
     catch(err=>{
