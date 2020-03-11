@@ -40,6 +40,7 @@ router.post('/sendOtp', (req, res)=>{
         else
         {
             console.log('Email is sended');
+            console.log(ran)
             res.end();
         }
     })
