@@ -4,6 +4,7 @@ const cors = require('cors');
 const nodemailer = require('nodemailer');
 
 const UserInfo = require('../models/userInfo');
+const UserFb = require('../models/userFb')
 router.use(cors());
 
 router.post('/addUser/:userId/:name/:email/:phone', (req, res)=>{
@@ -168,5 +169,63 @@ router.post('/updateUser/:id/:email/:field/:newValue', (req, res)=>{
     res.end();
 
 })
+
+
+// Update User Information.
+router.post('/userfeedback/:refno/:name/:email/:service/:msg', (req, res)=>{
+    
+    const today = new Date();
+    const userFbData = {
+        userId : req.params.refno,
+        name : req.params.name,
+        email : req.params.email,
+        service : req.params.service,
+        feedback : req.params.msg,
+        created : today
+    }
+
+    UserFb.create(userFbData)
+    .then((user)=>{
+        console.log('data stored.');
+        res.json({status : user.email + " Feedback added"});
+   
+    }).
+    catch(err=>{
+        res.send('error ' + err)
+    })
+
+     // Send Email as well.
+     const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'servicebird365@gmail.com',
+            pass : 'b-i-r-deservices'
+        }
+    });
+
+    const mailOptions = {
+        from: 'ServiceBird 365',
+        to: userFbData.email,
+        subject : `${userFbData.service} Service Feedback`,
+        // text : 'Hey ' + contactData.name + ', we received your message and now we reply you as soon as possible. Your Message: [' + contactData.message + '].'
+        text : `Hey ${userFbData.name}, we received your previous ${userFbData.service} booked service Feedback.\nNow, We have to evaluate your feedback. which is "${userFbData.feedback}".\nIf, there are any improvement then we will work hard to implement them.\n\nThank you to join us.`
+    }
+
+    transporter.sendMail(mailOptions, (err, info)=>{
+        if(err)
+        {
+            console.log(err);
+        }
+        else
+        {
+            console.log('Email is sended');
+            res.end();
+        }
+    })
+     
+    res.end();
+
+})
+
 
 module.exports = router

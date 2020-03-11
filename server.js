@@ -30,6 +30,7 @@ let serviceAddRouter = require('./routes/ServiceAdd');
 app.use('/getDetail', serviceAddRouter);
 
 let userInfoRouter = require('./routes/UserInfo');
+app.use('/userDetails', userInfoRouter);
 
 app.use(morgan('tiny'))
 app.use('/userDetails', userInfoRouter);
