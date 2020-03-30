@@ -42,7 +42,7 @@ router.post('/serviceAddress', (req, res)=>{
             service: 'gmail',
             auth: {
                 user: 'servicebird365@gmail.com',
-                pass : 'b-i-r-deservices'
+                pass : 'b-i-r-d1997eservices'
             }
         });
     
@@ -75,7 +75,7 @@ router.post('/serviceAddress', (req, res)=>{
 router.get('/retDetails/:serValue/:refValue', (req, res)=>{
     const refValue = req.params.refValue;
     const serValue = req.params.serValue;
-    ServiceAdd.find({ referenceNo: refValue})
+    ServiceAdd.find({ referenceNo: refValue} )
     .then((data)=>{
         console.log('userDetails data received')
         res.json({data});
@@ -121,7 +121,7 @@ router.get('/specPartner/:name/:email/:address1/:address2/:cityValue/:pincode/:s
                       service: 'gmail',
                       auth: {
                           user: 'servicebird365@gmail.com',
-                          pass : 'b-i-r-deservices'
+                          pass : 'b-i-r-d1997eservices'
                       }
                   });
   
@@ -164,7 +164,7 @@ router.get('/specPartner/:name/:email/:address1/:address2/:cityValue/:pincode/:s
                 service: 'gmail',
                 auth: {
                     user: 'servicebird365@gmail.com',
-                    pass : 'b-i-r-deservices'
+                    pass : 'b-i-r-d1997eservices'
                 }
             });
 
