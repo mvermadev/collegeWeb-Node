@@ -29,8 +29,8 @@ router.post('/query', (req, res)=>{
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'servicebird365@gmail.com',
-            pass : 'b-i-r-d1997eservices'
+            user: '', // Your Email.
+            pass : '' // Your Password.
         }
     });
 
